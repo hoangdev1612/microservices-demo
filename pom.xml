@@ -28,7 +28,8 @@
 		<twitter4j.version>4.0.7</twitter4j.version>
 		<avro-version>1.11.1</avro-version>
 		<spring-kafka.version>3.0.8</spring-kafka.version>
-		<spring-retry.version>2.0.1</spring-retry.version>
+		<spring-retry.version>1.2.5.RELEASE</spring-retry.version>
+		<spring-webflux.version>3.1.1</spring-webflux.version>
 	</properties>
 
 	<dependencyManagement>
@@ -47,6 +48,11 @@
 				<groupId>org.springframework.boot</groupId>
 				<artifactId>spring-boot-starter</artifactId>
 				<version>${spring-boot.version}</version>
+			</dependency>
+			<dependency>
+				<groupId>org.springframework.boot</groupId>
+				<artifactId>spring-boot-starter-webflux</artifactId>
+				<version>${spring-webflux.version}</version>
 			</dependency>
 			<dependency>
 				<groupId>org.springframework.boot</groupId>
