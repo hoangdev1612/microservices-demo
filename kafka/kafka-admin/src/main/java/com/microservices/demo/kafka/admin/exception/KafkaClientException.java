@@ -1,8 +1,11 @@
 package com.microservices.demo.kafka.admin.exception;
 
-public class KafkaClientException extends RuntimeException{
+/**
+ * Exception class for Kafka client error situations.
+ */
+public class KafkaClientException extends RuntimeException {
+
     public KafkaClientException() {
-        super();
     }
 
     public KafkaClientException(String message) {

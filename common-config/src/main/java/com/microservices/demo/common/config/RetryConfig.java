@@ -9,27 +9,29 @@ import org.springframework.retry.support.RetryTemplate;
 
 @Configuration
 public class RetryConfig {
-    private final RetryConfigData retryConfigData;
 
-    public RetryConfig(RetryConfigData retryConfigData) {
-        this.retryConfigData = retryConfigData;
+    private RetryConfigData retryConfigData;
+
+    public RetryConfig(RetryConfigData configData) {
+        this.retryConfigData = configData;
     }
 
     @Bean
-    public RetryTemplate retryTemplate() { //cung cấp cơ chế tái thử lại cho các hoạt động thất bại.
-
+    public RetryTemplate retryTemplate() {
         RetryTemplate retryTemplate = new RetryTemplate();
 
-        ExponentialBackOffPolicy exponentialBackOffPolicy = new ExponentialBackOffPolicy();//là một chính sách back-off (khoảng thời gian chờ giữa các lần thử lại) theo mô hình tăng theo cấp số nhân.
-        exponentialBackOffPolicy.setInitialInterval(retryConfigData.getInitialIntervalMs());//khoảng thời gian ban đầu
-        exponentialBackOffPolicy.setMaxInterval(retryConfigData.getMaxIntervalMs());//khoảng thời gian tối đa
-        exponentialBackOffPolicy.setMultiplier(retryConfigData.getMultiplier());//hệ số nhân
+        ExponentialBackOffPolicy exponentialBackOffPolicy = new ExponentialBackOffPolicy();
+        exponentialBackOffPolicy.setInitialInterval(retryConfigData.getInitialIntervalMs());
+        exponentialBackOffPolicy.setMaxInterval(retryConfigData.getMaxIntervalMs());
+        exponentialBackOffPolicy.setMultiplier(retryConfigData.getMultiplier());
+
         retryTemplate.setBackOffPolicy(exponentialBackOffPolicy);
 
-        SimpleRetryPolicy simpleRetryPolicy = new SimpleRetryPolicy();// là một chính sách đơn giản cho số lần thử lại tối đa
+        SimpleRetryPolicy simpleRetryPolicy = new SimpleRetryPolicy();
         simpleRetryPolicy.setMaxAttempts(retryConfigData.getMaxAttempts());
 
         retryTemplate.setRetryPolicy(simpleRetryPolicy);
+
         return retryTemplate;
     }
 }
